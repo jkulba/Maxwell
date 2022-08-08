@@ -26,7 +26,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = "maxwellresourcegroup"
+  name     = "${local.project-name}${local.app-environment}resourcegroup"
   location = local.app-location
 
   tags = {
@@ -66,15 +66,15 @@ resource "azurerm_service_plan" "service_plan" {
 }
 
 # Create Linux Function App
-resource "azurerm_linux_function_app" "function_app" {
-  name                 = "${local.project-name}${local.app-environment}functionapp"
-  resource_group_name  = azurerm_resource_group.resource_group.name
-  location             = azurerm_resource_group.resource_group.location
-  storage_account_name = azurerm_storage_account.storage_account.name
-  service_plan_id      = azurerm_service_plan.service_plan.id
-  https_only           = true
+# resource "azurerm_linux_function_app" "function_app" {
+#   name                 = "${local.project-name}${local.app-environment}functionapp"
+#   resource_group_name  = azurerm_resource_group.resource_group.name
+#   location             = azurerm_resource_group.resource_group.location
+#   storage_account_name = azurerm_storage_account.storage_account.name
+#   service_plan_id      = azurerm_service_plan.service_plan.id
+#   https_only           = true
 
-  site_config {
-    minimum_tls_version = "1.2"
-  }
-}
+#   site_config {
+#     minimum_tls_version = "1.2"
+#   }
+# }
